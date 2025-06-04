@@ -56,7 +56,7 @@ export default function App() {
   const [watched, setWatched] = useState(tempWatchedData);
 
   useEffect(function (){
-    fetch(`http://www.omdbapi.com/?i=tt3896198&apikey={KEY}&s=interstellar`).then((res) => res.json()).then((data) => setMovies(data.Search))
+    fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=interstellar`).then((res) => res.json()).then((data) => setMovies(data.Search))
   })
 
   // lecture 12 part 6 continue
