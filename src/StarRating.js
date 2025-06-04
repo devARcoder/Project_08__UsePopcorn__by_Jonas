@@ -16,7 +16,6 @@ StarRating.prototype = {
   color: PropTypes.string,
   size: PropTypes.number,
   messages: PropTypes.array,
-  onSetRating: PropTypes.func
 }
 
 export default function StarRating({
@@ -107,4 +106,4 @@ function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
   );
 }
 
-// lecture 10 part 16 video 20sec
+
