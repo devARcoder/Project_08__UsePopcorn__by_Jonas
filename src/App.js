@@ -86,7 +86,10 @@ export default function App() {
 
       <Main>
         <Box>
-          {isLoading ? <Loader /> : <MovieList movies={movies} />}
+          {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
+          {isLoading && <Loader/>}
+          {isLoading && !error && <MovieList movies={movies} />}
+          {error && <ErrorMessage message={error}/>}
         </Box>
         <Box>
           <WatchedSummery watched={watched} />
@@ -105,7 +108,7 @@ function Loader() {
 
 function ErrorMessage({message}){
   return (
-    <p className="error"><span>🌋</span></p>
+    <p className="error"><span>🌋</span> {message}</p>
   )
 }
 
