@@ -59,6 +59,7 @@ export default function App() {
   const [error, setError] = useState("");
   const tempQuery = "interstellar";
 
+  /*
   useEffect(function () {
     console.log("After initial render")
   }, [])
@@ -72,13 +73,16 @@ export default function App() {
   }, [query])
 
   console.log("During render")
+  */
 
+  
   useEffect(function () {
     async function fetchMovies() {
       try {
         setIsLoading(true);
+        setError('');
         const res = await fetch(
-          `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${tempQuery}`
+          `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
         );
 
         if (!res.ok)
@@ -96,7 +100,7 @@ export default function App() {
       }
     }
     fetchMovies();
-  }, []);
+  }, [query]);
   return (
     <>
       <Navbar>
