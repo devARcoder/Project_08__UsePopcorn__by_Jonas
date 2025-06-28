@@ -54,10 +54,12 @@ const KEY = 'c4574b56'
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
+  const [isLoading, setIsLoading] = useState(false)
   const query = 'interstellar'
   useEffect(function () {
 
     async function fetchMovies(){
+      setIsLoading(true)
       const res = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`)
       const data = await res.json()
       setMovies(data.Search)
