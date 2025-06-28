@@ -66,7 +66,6 @@ export default function App() {
     fetchMovies()
   }, [])
 
-  // lecture 12 part 6 continue
   
   return (
     <>
