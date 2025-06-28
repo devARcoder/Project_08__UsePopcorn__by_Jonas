@@ -50,35 +50,39 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const KEY = 'c4574b56'
+const KEY = "c4574b56";
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
-  const query = 'interstellar'
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const query = "hgfhhhf";
   useEffect(function () {
+    async function fetchMovies() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(
+          `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
+        );
 
-    async function fetchMovies(){
-      try {setIsLoading(true)
-      const res = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`);
-
-      if (!res.ok) throw new Error("Something went wrong with fetching movies")
-
-      const data = await res.json()
-      setMovies(data.Search)
-      
-    } catch(err) {
-      console.error(err.message)
-      setError(err.message)
+        if (!res.ok)
+          throw new Error("Something went wrong with fetching movies");
+        
+        const data = await res.json();
+        if (data.Response === 'False') throw new Error ("Movie not found")
+        console.log(data.Search)
+        setMovies(data.Search);
+      } catch (err) {
+        console.error(err.message);
+        setError(err.message);
       } finally {
         setIsLoading(false);
       }
     }
-    fetchMovies()
-  }, [])
+    fetchMovies();
+  }, []);
 
-  // lecture 12 part 8 time 10:00 mint 
+  // lecture 12 part 8 time 10:00 mint
   return (
     <>
       <Navbar>
@@ -89,9 +93,9 @@ export default function App() {
       <Main>
         <Box>
           {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
-          {isLoading && <Loader/>}
+          {isLoading && <Loader />}
           {isLoading && !error && <MovieList movies={movies} />}
-          {error && <ErrorMessage message={error}/>}
+          {error && <ErrorMessage message={error} />}
         </Box>
         <Box>
           <WatchedSummery watched={watched} />
@@ -103,15 +107,15 @@ export default function App() {
 }
 
 function Loader() {
-  return (
-    <p className="loader">Loading...</p>
-  )
+  return <p className="loader">Loading...</p>;
 }
 
-function ErrorMessage({message}){
+function ErrorMessage({ message }) {
   return (
-    <p className="error"><span>🌋</span> {message}</p>
-  )
+    <p className="error">
+      <span>🌋</span>{message}
+    </p>
+  );
 }
 
 function Navbar({ children }) {
@@ -161,10 +165,7 @@ function Box({ children }) {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen((open) => !open)}
-      >
+      <button className="btn-toggle" onClick={() => setIsOpen((open) => !open)}>
         {isOpen ? "–" : "+"}
       </button>
       {isOpen && children}
@@ -219,7 +220,6 @@ function Movie({ movie }) {
     </li>
   );
 }
-
 
 function WatchedSummery({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
@@ -281,4 +281,3 @@ function WatchedMovie({ movie }) {
     </li>
   );
 }
-
