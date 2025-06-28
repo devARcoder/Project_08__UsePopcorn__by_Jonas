@@ -60,14 +60,18 @@ export default function App() {
   const tempQuery = "interstellar";
 
   useEffect(function () {
-    console.log("A")
+    console.log("After initial render")
   }, [])
 
   useEffect(function () {
-    console.log("B")
+    console.log("After every render")
   })
 
-  console.log("C")
+  useEffect(function () {
+    console.log("D")
+  }, [query])
+
+  console.log("During render")
 
   useEffect(function () {
     async function fetchMovies() {
