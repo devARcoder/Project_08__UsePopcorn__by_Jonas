@@ -63,7 +63,7 @@ export default function App() {
       const res = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`)
       const data = await res.json()
       setMovies(data.Search)
-      console.log(data.Search)
+      setIsLoading(false)
     }
     fetchMovies()
   }, [])
@@ -77,16 +77,8 @@ export default function App() {
       </Navbar>
 
       <Main>
-        {/* <Box element={<MovieList movies={movies} />} />
-        <Box element={
-          <>
-          <WatchedSummery watched={watched} />
-          <WatchedMoviesList watched={watched} />
-          </>
-        } /> */}
-
         <Box>
-          <MovieList movies={movies} />
+          {isLoading ? <Loader /> : <MovieList movies={movies} />}
         </Box>
         <Box>
           <WatchedSummery watched={watched} />
@@ -95,6 +87,12 @@ export default function App() {
       </Main>
     </>
   );
+}
+
+function Loader() {
+  return (
+    <p className="loader">Loading...</p>
+  )
 }
 
 function Navbar({ children }) {
