@@ -78,7 +78,7 @@ export default function App() {
     fetchMovies()
   }, [])
 
-  
+  // lecture 12 part 8 time 10:00 mint 
   return (
     <>
       <Navbar>
