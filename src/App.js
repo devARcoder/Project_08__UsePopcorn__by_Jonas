@@ -57,7 +57,7 @@ export default function App() {
   const [watched, setWatched] = useState(tempWatchedData);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const tempQuery = "interstellar";
+  const [selectedId, setSelectedId] = useState(null);
 
   /*
   useEffect(function () {
@@ -74,6 +74,10 @@ export default function App() {
 
   console.log("During render")
   */
+
+  function handleSelectMovie(id){
+    setSelectedId(id)
+  }
  
   
   useEffect(function () {
@@ -118,12 +122,18 @@ export default function App() {
         <Box>
           {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
           {isLoading && <Loader />}
-          {!isLoading && !error && <MovieList movies={movies} />}
+          {!isLoading && !error && <MovieList movies={movies} onSelectMovie={handleSelectMovie} />}
           {error && <ErrorMessage message={error} />}
         </Box>
         <Box>
-          <WatchedSummery watched={watched} />
+          {selectedId ? (
+            <MovieDetails selectedId={selectedId}/>
+          ) : (
+          <>
+            <WatchedSummery watched={watched} />
           <WatchedMoviesList watched={watched} />
+          </>
+          )}
         </Box>
       </Main>
     </>
@@ -221,18 +231,18 @@ function WatchedBox() {
 }
 */
 
-function MovieList({ movies }) {
+function MovieList({ movies, onSelectMovie }) {
   return (
     <ul className="list">
       {movies?.map((movie) => (
-        <Movie movie={movie} key={movie.imdbID} />
+        <Movie movie={movie} key={movie.imdbID} onSelectMovie={onSelectMovie} />
       ))}
     </ul>
   );
 }
-function Movie({ movie }) {
+function Movie({ movie, onSelectMovie }) {
   return (
-    <li key={movie.imdbID}>
+    <li onClick={() => onSelectMovie(movie.imdbID)} key={movie.imdbID}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
@@ -243,6 +253,14 @@ function Movie({ movie }) {
       </div>
     </li>
   );
+}
+
+function MovieDetails ({selectedId}){
+  return (
+    <div className="details">
+      {selectedId}
+    </div>
+  )
 }
 
 function WatchedSummery({ watched }) {
