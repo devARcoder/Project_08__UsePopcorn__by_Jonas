@@ -78,6 +78,10 @@ export default function App() {
   function handleSelectMovie(id){
     setSelectedId(id)
   }
+
+  function handleCloseMovie(){
+    selectedId(null)
+  }
  
   
   useEffect(function () {
@@ -127,7 +131,7 @@ export default function App() {
         </Box>
         <Box>
           {selectedId ? (
-            <MovieDetails selectedId={selectedId}/>
+            <MovieDetails selectedId={selectedId} onCloseMovie={}/>
           ) : (
           <>
             <WatchedSummery watched={watched} />
@@ -233,7 +237,7 @@ function WatchedBox() {
 
 function MovieList({ movies, onSelectMovie }) {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies?.map((movie) => (
         <Movie movie={movie} key={movie.imdbID} onSelectMovie={onSelectMovie} />
       ))}
