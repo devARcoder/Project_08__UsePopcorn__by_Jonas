@@ -100,6 +100,12 @@ export default function App() {
         setIsLoading(false);
       }
     }
+
+    if (query.length < 3){
+      setMovies([])
+      setError('')
+      return
+    }
     fetchMovies();
   }, [query]);
   return (
@@ -170,10 +176,11 @@ function Search({query, setQuery}) {
 function NumResults({ movies }) {
   return (
     <p className="num-results">
-      Found <strong>{movies.length}</strong> results
+      Found <strong>{movies?.length || 0}</strong> results
     </p>
   );
 }
+
 
 function Main({ children }) {
   return <main className="main">{children}</main>;
