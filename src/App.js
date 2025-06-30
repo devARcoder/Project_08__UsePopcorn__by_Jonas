@@ -90,7 +90,7 @@ export default function App() {
           setIsLoading(true);
           setError("");
           const res = await fetch(
-            `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
           );
 
           if (!res.ok)
@@ -297,9 +297,18 @@ function MovieDetails({ selectedId, onCloseMovie }) {
   }, []);
   return (
     <div className="details">
+      <header>
       <button className="btn-back" onClick={onCloseMovie}>
         &larr;
       </button>
+      <img src={poster} alt={title} />
+      <div className="details-overview">
+        <h2>{title}</h2>
+        <p>{released} &bull; {runtime}</p>
+        <p>{genre}</p>
+        <p><span>⭐</span>{imdbRating} IMDb rating</p>
+      </div>
+      </header>
       {selectedId}
     </div>
   );
