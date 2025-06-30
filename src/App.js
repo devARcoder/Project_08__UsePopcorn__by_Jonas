@@ -74,8 +74,7 @@ export default function App() {
 
   console.log("During render")
   */
-
-  // lecture 12 part 10 time 10:00 mint 
+ 
   
   useEffect(function () {
     async function fetchMovies() {
