@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import StarRating from "./StarRating"
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -268,6 +268,7 @@ function Movie({ movie, onSelectMovie }) {
 
 function MovieDetails({ selectedId, onCloseMovie }) {
   const [movie, setMovie] = useState({});
+  const [userRating, setUserRating] = useState(0);
 
   const {
     Title: title,
@@ -309,6 +310,15 @@ function MovieDetails({ selectedId, onCloseMovie }) {
         <p><span>⭐</span>{imdbRating} IMDb rating</p>
       </div>
       </header>
+
+      <section>
+        <div className="rating">
+        <StarRating onSetRating={setUserRating} maxRating={10} size={24}/>
+        </div>
+        <p><em>{plot}</em></p>
+        <p>Starring {actors}</p>
+        <p>Directed by {director}</p>
+      </section>
       {selectedId}
     </div>
   );
