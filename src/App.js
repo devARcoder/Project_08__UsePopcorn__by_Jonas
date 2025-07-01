@@ -282,7 +282,7 @@ function MovieDetails({ selectedId, onCloseMovie }) {
     Director: director,
     Genre: genre
   } = movie;
-
+//  lecture 12 part 12 
   console.log(title, year)
 
   useEffect(function () {
@@ -295,7 +295,7 @@ function MovieDetails({ selectedId, onCloseMovie }) {
       console.log(data);
     }
     getMovieDetails();
-  }, []);
+  }, [selectedId]);
   return (
     <div className="details">
       <header>
