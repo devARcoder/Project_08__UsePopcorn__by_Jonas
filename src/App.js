@@ -332,7 +332,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
       </div>
       </header>
 
-      {/* lecture 12 part 13 time 12:45  */}
+      
       <section>
         <div className="rating">
         <StarRating onSetRating={setUserRating} maxRating={10} size={24}/>
